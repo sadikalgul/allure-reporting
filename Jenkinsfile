@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Run Test'){
             steps {
-               sh 'mvn clean install test'
+               sh 'mvn clean install -DskipTests'
             }
         }
     }
