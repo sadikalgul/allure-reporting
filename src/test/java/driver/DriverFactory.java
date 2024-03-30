@@ -1,9 +1,7 @@
 package driver;
 
-import com.codeborne.selenide.Browsers;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.*;
+import com.google.common.collect.ImmutableMap;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -78,22 +76,26 @@ public class DriverFactory {
     }
 
     public static void initRemoteDriver() {
-        String host = "http://localhost:4444/wd/hub";
+        String host = propertyManager.getProperty("SELENIUM_HUB_URL");
 
         String browserName = "CHROME";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         capabilities.setCapability("browserName", browserName);
-        capabilities.setCapability("screenResolution", "1920x1080");
+        capabilities.setBrowserName("chrome");
+        capabilities.setCapability("selenoid:options", ImmutableMap.of(
+                "enableVNC", true,
+                "enableVideo", true
+        ));
 
 
-        try {
-            RemoteWebDriver driver = new RemoteWebDriver(new URL(host), capabilities);
-            setWebDriver(driver);
-            String sessionId = driver.getSessionId().toString();
-        } catch (MalformedURLException ignored) {
-        }
+        Configuration.browser = browserName;
+        Configuration.headless = Objects.equals(propertyManager.getProperty("HEADLESS"), "Y");
+        Configuration.remote = host;
+        Configuration.browserCapabilities = capabilities;
+        Configuration.fileDownload = FileDownloadMode.HTTPGET;
+        Configuration.proxyEnabled = false;
     }
 
     public static WebDriver currentDriver() {
