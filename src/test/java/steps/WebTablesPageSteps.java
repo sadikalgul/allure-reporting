@@ -40,6 +40,7 @@ public class WebTablesPageSteps {
     @When("I update newly added personal")
     public void i_update_newly_added_personal() {
         // Write code here that turns the phrase above into concrete actions
+        DemoHelper.pause();
         pageManager.webTablesPage.newItem.click();
         pageManager.webTablesPage.searchBox.clear();
         pageManager.webTablesPage.firstName.clear();
