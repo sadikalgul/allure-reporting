@@ -41,8 +41,9 @@ public class WebTablesPageSteps {
     public void i_update_newly_added_personal() {
         // Write code here that turns the phrase above into concrete actions
         DemoHelper.pause();
-        pageManager.webTablesPage.newItem.click();
         pageManager.webTablesPage.searchBox.clear();
+        pageManager.webTablesPage.searchBox.sendKeys("SADIK");
+        pageManager.webTablesPage.newItem.click();
         pageManager.webTablesPage.firstName.clear();
         pageManager.webTablesPage.firstName.sendKeys("ECE");
         pageManager.webTablesPage.lastName.clear();
