@@ -1,5 +1,6 @@
 package steps;
 
+import common.DemoHelper;
 import common.PageManager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -28,6 +29,7 @@ public class ElementsPageSteps {
     @When("I press Click Me")
     public void i_press_click_me() {
         // Write code here that turns the phrase above into concrete actions
+        DemoHelper.pause();
         pageManager.elementsPage.clickMeButtons.click();
     }
     @Then("I can see {string}")
